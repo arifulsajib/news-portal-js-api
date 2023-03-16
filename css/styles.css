@@ -3,6 +3,11 @@
 
 body {
   font-family: "Poppins", sans-serif;
+  background-color: #f6f6f7;
+}
+
+.bg-blue {
+  background-color: #5d5fef;
 }
 
 .fs-0 {
@@ -13,5 +18,27 @@ body {
 }
 
 .text-grey {
-  color: rgba(255, 255, 255, 0.8);
+  color: #898989;
+}
+
+.text-offwhite {
+  color: rgba(255, 255, 255, 0.92);
+}
+
+.active {
+  color: #5d5fef !important;
+  border-bottom: 2px solid #3437f0;
+}
+
+.active:hover {
+  color: #3437f0 !important;
+}
+
+.activeCat {
+  color: #5d5fef;
+  background-color: #eeefff;
+}
+
+.bg-darker {
+  background: rgba(0, 0, 0, 0.7);
 }
