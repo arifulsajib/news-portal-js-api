@@ -40,7 +40,7 @@
       <hr class="container mt-0" />
     </header>
 
-    <main>
+    <main style="min-height: 80vh">
       <!--==== News Categories section ====-->
       <section class="container my-4">
         <div id="categoryNews-container">
@@ -58,11 +58,10 @@
         <!-- filters -->
         <div class="d-flex flex-wrap justify-content-between">
           <div class="d-flex align-items-center">
-            <p class="me-2 my-auto">Sort By View </p>
-            <select class="border-0 p-2 rounded">
-              <option selected>default</option>
-              <option value="1">by name</option>
-              <option value="2">by view</option>
+            <p class="me-2 my-auto">Sort By View</p>
+            <select id="select-sort" class="border-0 p-2 rounded">
+              <option value="default">low to high</option>
+              <option value="view">high to low</option>
             </select>
           </div>
           <div class="d-flex">
@@ -122,6 +121,48 @@
           <!-- single news end  -->
         </div>
       </section>
+
+      <!--==== News details Modal ====-->
+      <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h1 class="modal-title fs-5" id="staticBackdropLabel">Detailed news</h1>
+              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+              <div>
+                <img id="details-img" src="https://i.ibb.co/M23fhxm/unsplash-Eh-Tc-C9s-YXsw.png" alt="Image" class="w-100" />
+              </div>
+              <div>
+                <div class="card-body">
+                  <h5 id="details-title" class="card-title fw-semibold my-3">The best fashion influencers to follow for sartorial inspiration </h5>
+                  <p id="details-p1" class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
+                  <p id="details-p2" class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
+                  <div class="d-flex justify-content-between align-items-center flex-wrap mt-4">
+                    <div class="d-flex">
+                      <img id="details-author-img" class="rounded-circle my-auto" src="https://source.unsplash.com/collection/happy-people" alt="" width="35px" height="35px" />
+                      <p class="my-auto ms-2"><span id="details-author-name">Ariful</span> <br /><span id="details-date">07-11-2022</span></p>
+                    </div>
+                    <p class="my-auto"><i class="fa-solid fa-eye"></i> <span id="details-view">1504</span></p>
+                    <div id="details-rating">
+                      <i class="fa-solid fa-star text-warning"></i>
+                      <i class="fa-solid fa-star text-warning"></i>
+                      <i class="fa-solid fa-star text-warning"></i>
+                      <i class="fa-solid fa-star text-warning"></i>
+                      <i class="fa-regular fa-star text-warning"></i>
+                    </div>
+                    <button class="btn d-none d-lg-block"><i class="fa-solid fa-arrow-right"></i></button>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+            </div>
+          </div>
+        </div>
+      </div>
     </main>
 
     <footer class="bg-white p-3 text-center">

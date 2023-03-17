@@ -15,3 +15,12 @@ fetchData("https://openapi.programming-hero.com/api/news/categories", displayCat
 
 // Display news on load
 fetchData("https://openapi.programming-hero.com/api/news/category/01", displayNews);
+
+// display according to select option
+const selectSort = document.getElementById("select-sort");
+selectSort.addEventListener("change", (e) => {
+  const selectedIndex = e.target.selectedIndex;
+  const selectedOptionValue = e.target.options[selectedIndex].value;
+
+  displayNews(currentdataArr, selectedOptionValue);
+});

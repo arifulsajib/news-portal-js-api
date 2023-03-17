@@ -1,3 +1,6 @@
+// current data array
+let currentdataArr = [];
+
 // get value function
 const getValue = (id) => {
   const element = document.getElementById(id);
@@ -11,15 +14,17 @@ const setValue = (id, value) => {
 };
 
 // fetch data function
-const fetchData = (url, displayData) => {
+const fetchData = (url, displayData, sortby = "default") => {
   toggleLoading(true);
   fetch(url)
     .then((res) => res.json())
-    .then((data) => displayData(data.data));
+    .then((data) => {
+      displayData(data.data, sortby);
+    });
 };
 
 // display news categories function
-const displayCategoryNews = (newsCatobj) => {
+const displayCategoryNews = (newsCatobj, sortby) => {
   const newsCatArr = newsCatobj.news_category;
 
   const newsCatContainer = document.getElementById("categoryNews-container");
@@ -39,28 +44,41 @@ const displayCategoryNews = (newsCatobj) => {
 };
 
 // display News function
-const displayNews = (newsArr) => {
+const displayNews = (newsArr, sortby) => {
+  currentdataArr = newsArr;
   const newsContainer = document.getElementById("news-container");
   newsContainer.innerHTML = "";
+
+  // sortby
+  if (sortby == "view") {
+    newsArr.sort((a, b) => b.total_view - a.total_view);
+  } else if (sortby == "todaysPick") {
+    const newsArrFilter = newsArr.filter((el) => el.others_info.is_todays_pick == true);
+    newsArr = newsArrFilter;
+  } else {
+    newsArr.sort((a, b) => a.total_view - b.total_view);
+  }
 
   //   not found
   if (newsArr.length === 0) {
     toggleNotFound(true);
     toggleLoading(false);
+    setValue("data-num", newsArr.length);
   } else {
     setValue("data-num", newsArr.length);
     toggleNotFound(false);
   }
+
   //   loop through each
   for (const news of newsArr) {
-    // console.log(news);
+    // console.log(news._id);
     const newsDiv = document.createElement("div");
     newsDiv.classList.add("col");
     newsDiv.classList.add("col-md-11");
     newsDiv.classList.add("mx-auto");
 
     newsDiv.innerHTML = `
-    <div class="card p-2 border-0 shadow" onclick="displayDetailsModal()">
+    <div class="card p-2 border-0 shadow" onclick="displayDetailsModal('${news._id}')" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
       <div class="row g-0">
         <div class="col-md-4 my-auto">
           <img src="${news.thumbnail_url}" class="w-100 rounded-4" alt="..." style="max-height: 320px" />
@@ -90,12 +108,37 @@ const displayNews = (newsArr) => {
   }
 };
 
-// display details model
-const displayDetailsModal = () => {
-  console.log("okay");
+// display details model function
+const displayDetailsModal = (id) => {
+  const url = `https://openapi.programming-hero.com/api/news/${id}`;
+
+  console.log(url);
+
+  // fetch
+  fetch(url)
+    .then((res) => res.json())
+    .then((data) => displayModal(data.data[0]));
+
+  // display
+  const displayModal = (newsDetails) => {
+    console.log(newsDetails);
+    const newsDetailsLength = newsDetails.details.length;
+    document.getElementById("details-img").src = newsDetails.image_url;
+    setValue("details-title", newsDetails.title);
+    setValue("details-p1", newsDetails.details.slice(0, 200));
+    setValue("details-p2", newsDetails.details.slice(201, newsDetailsLength));
+    document.getElementById("details-author-img").src = newsDetails.author.img;
+    setValue("details-author-name", newsDetails.author.name);
+    setValue("details-date", newsDetails.author.published_date.slice(0, 10));
+    setValue("details-view", newsDetails.total_view);
+    // ${displayRating(news.rating.number)
+    document.getElementById("details-rating").innerHTML = `
+    ${displayRating(newsDetails.rating.number)}
+    `;
+  };
 };
 
-// display rating
+// display rating function
 const displayRating = (num) => {
   const numRounded = Math.round(num);
   if (numRounded === 1) {
