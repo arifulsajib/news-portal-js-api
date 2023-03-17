@@ -5,7 +5,7 @@
 - Semantic HTML5 markup
 - CSS3
 - Bootstrap
-- Javascript ES6
+- Javascript (ES6)
 - Rest API
 
 ### Links
