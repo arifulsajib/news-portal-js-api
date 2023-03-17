@@ -121,7 +121,7 @@ const displayDetailsModal = (id) => {
 
   // display
   const displayModal = (newsDetails) => {
-    console.log(newsDetails);
+    // console.log(newsDetails);
     const newsDetailsLength = newsDetails.details.length;
     document.getElementById("details-img").src = newsDetails.image_url;
     setValue("details-title", newsDetails.title);
